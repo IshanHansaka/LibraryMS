@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class StaffDTO implements Serializable{
     private String staffId;
-    private String fisrtName;
+    private String firstName;
     private String lastName;
     private String email;
     private String joinDate;
