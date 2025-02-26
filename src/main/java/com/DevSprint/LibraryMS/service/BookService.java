@@ -8,6 +8,6 @@ public interface BookService {
     void addBook(BookDTO bookDTO);
     void deleteBook(String bookId);
     void updateBook(String bookId, BookDTO bookDTO);
-    void getBookById(String bookId);
-    List<BookDTO> getAllBooks(BookDTO bookDTO);
+    BookDTO getBookById(String bookId);
+    List<BookDTO> getAllBooks();
 }
