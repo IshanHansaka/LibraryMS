@@ -14,6 +14,11 @@ public class LendingServiceIMPL implements LendingService{
     @Override
     public void addLending(LendingDTO lendingDTO) {
         lendingDTO.setLendingId(UtilData.generateLendingId());
+        lendingDTO.setLendingDate(UtilData.generateTodayDate());
+        lendingDTO.setReturnDate(UtilData.generateReturnDate());
+        lendingDTO.setIsActiveLending(true);
+        lendingDTO.setOverdueDays(0L);
+        lendingDTO.setFineAmount(0.00);
         System.out.println(lendingDTO);
     };
 
@@ -34,10 +39,8 @@ public class LendingServiceIMPL implements LendingService{
         lending.setLendingId("L12345");
         lending.setBook("Effective Java");
         lending.setMember("M12345");
-        lending.setLendingDate("2025-02-01");
-        lending.setReturnDate("2025-02-15");
         lending.setIsActiveLending(true);
-        lending.setOverdueDays(1);
+        lending.setOverdueDays(1L);
         lending.setFineAmount(10.00);
         return lending;
     };
@@ -50,30 +53,24 @@ public class LendingServiceIMPL implements LendingService{
         lending1.setLendingId("L12345");
         lending1.setBook("Effective Java");
         lending1.setMember("M12345");
-        lending1.setLendingDate("2025-02-01");
-        lending1.setReturnDate("2025-02-15");
         lending1.setIsActiveLending(true);
-        lending1.setOverdueDays(1);
+        lending1.setOverdueDays(1L);
         lending1.setFineAmount(10.00);
 
         LendingDTO lending2 = new LendingDTO();
         lending2.setLendingId("L12345");
         lending2.setBook("Effective Java");
         lending2.setMember("M12345");
-        lending2.setLendingDate("2025-02-01");
-        lending2.setReturnDate("2025-02-15");
         lending2.setIsActiveLending(true);
-        lending2.setOverdueDays(1);
+        lending2.setOverdueDays(1L);
         lending2.setFineAmount(10.00);
 
         LendingDTO lending3 = new LendingDTO();
         lending3.setLendingId("L12345");
         lending3.setBook("Effective Java");
         lending3.setMember("M12345");
-        lending3.setLendingDate("2025-02-01");
-        lending3.setReturnDate("2025-02-15");
         lending3.setIsActiveLending(true);
-        lending3.setOverdueDays(1);
+        lending3.setOverdueDays(1L);
         lending3.setFineAmount(10.00);
 
         lendingList.add(lending1);
