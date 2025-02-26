@@ -1,6 +1,7 @@
 package com.DevSprint.LibraryMS.dto;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,5 +14,5 @@ public class MemberDTO implements Serializable{
     private String memberId;
     private String name;
     private String email;
-    private String membershipData;
+    private LocalDate membershipDate;
 }
