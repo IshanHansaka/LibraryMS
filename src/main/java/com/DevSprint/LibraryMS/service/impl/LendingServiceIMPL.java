@@ -16,7 +16,7 @@ import com.DevSprint.LibraryMS.util.UtilData;
 public class LendingServiceIMPL implements LendingService {
     
     @Value("${perDayFine}") // Value injection
-    private Double perDayFine = 5.0;
+    private Double fineAmount;
 
     @Override
     public void addLending(LendingDTO lendingDTO) {
@@ -98,6 +98,6 @@ public class LendingServiceIMPL implements LendingService {
     }
 
     private Double calcOverDue(Long datCount) {
-        return datCount * perDayFine;
+        return datCount * fineAmount;
     }
 }
