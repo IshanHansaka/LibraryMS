@@ -1,8 +1,11 @@
 package com.DevSprint.LibraryMS.service.impl;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.DevSprint.LibraryMS.dto.LendingDTO;
@@ -10,7 +13,11 @@ import com.DevSprint.LibraryMS.service.LendingService;
 import com.DevSprint.LibraryMS.util.UtilData;
 
 @Service
-public class LendingServiceIMPL implements LendingService{
+public class LendingServiceIMPL implements LendingService {
+    
+    @Value("${perDayFine}") // Value injection
+    private Double perDayFine = 5.0;
+
     @Override
     public void addLending(LendingDTO lendingDTO) {
         lendingDTO.setLendingId(UtilData.generateLendingId());
@@ -28,9 +35,8 @@ public class LendingServiceIMPL implements LendingService{
     };
 
     @Override
-    public void updateLending(String lendingId, LendingDTO lendingDTO) {
-        System.out.println(lendingId);
-        System.out.println(lendingDTO);
+    public void updateLending(String lendingId) {
+        //Todo
     };
 
     @Override
@@ -46,8 +52,8 @@ public class LendingServiceIMPL implements LendingService{
     };
 
     @Override
-    public List <LendingDTO> getAllLending() {
-        List <LendingDTO> lendingList = new ArrayList<>();
+    public List<LendingDTO> getAllLending() {
+        List<LendingDTO> lendingList = new ArrayList<>();
 
         LendingDTO lending1 = new LendingDTO();
         lending1.setLendingId("L12345");
@@ -79,4 +85,19 @@ public class LendingServiceIMPL implements LendingService{
 
         return lendingList;
     };
+
+    private Long calcOverDue() {
+        //Today
+        LocalDate today = UtilData.generateTodayDate();
+        LocalDate returDate = UtilData.generateReturnDateCalc();
+
+        if (returDate.isBefore(today)) {
+            return ChronoUnit.DAYS.between(today, returDate);
+        } 
+        return 0L;
+    }
+
+    private Double calcOverDue(Long datCount) {
+        return datCount * perDayFine;
+    }
 }
