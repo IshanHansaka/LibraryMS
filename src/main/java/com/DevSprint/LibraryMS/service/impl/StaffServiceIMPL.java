@@ -35,7 +35,7 @@ public class StaffServiceIMPL implements StaffService {
     public StaffDTO getStaffById(String staffId) {
         StaffDTO staff = new StaffDTO();
         staff.setStaffId("S12345");
-        staff.setFisrtName("John");
+        staff.setFirstName("John");
         staff.setLastName("Doe");
         staff.setEmail("john.doe@example.com");
         staff.setJoinDate("2025-02-26");
@@ -50,7 +50,7 @@ public class StaffServiceIMPL implements StaffService {
 
         StaffDTO staff1 = new StaffDTO();
         staff1.setStaffId("S12345");
-        staff1.setFisrtName("John");
+        staff1.setFirstName("John");
         staff1.setLastName("Doe");
         staff1.setEmail("john.doe@example.com");
         staff1.setJoinDate("2025-02-26");
@@ -59,7 +59,7 @@ public class StaffServiceIMPL implements StaffService {
 
         StaffDTO staff2 = new StaffDTO();
         staff2.setStaffId("S12345");
-        staff2.setFisrtName("John");
+        staff2.setFirstName("John");
         staff2.setLastName("Doe");
         staff2.setEmail("john.doe@example.com");
         staff2.setJoinDate("2025-02-26");
@@ -68,7 +68,7 @@ public class StaffServiceIMPL implements StaffService {
 
         StaffDTO staff3 = new StaffDTO();
         staff3.setStaffId("S12345");
-        staff3.setFisrtName("John");
+        staff3.setFirstName("John");
         staff3.setLastName("Doe");
         staff3.setEmail("john.doe@example.com");
         staff3.setJoinDate("2025-02-26");
