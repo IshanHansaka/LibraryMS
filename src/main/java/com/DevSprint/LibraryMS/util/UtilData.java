@@ -36,4 +36,8 @@ public class UtilData {
     public static LocalDate generateReturnDate() {
         return LocalDate.now().plusDays(7);
     }
+
+    public static LocalDate generateReturnDateCalc() {
+        return LocalDate.now().minusDays(7);
+    }
 }
