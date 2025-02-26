@@ -1,5 +1,7 @@
 package com.DevSprint.LibraryMS.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +16,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.DevSprint.LibraryMS.dto.LendingDTO;
+import com.DevSprint.LibraryMS.service.LendingService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("api/v1/lendings")
+@RequiredArgsConstructor // constructor injection
 public class LendingController {
+
+    public final LendingService lendingService;
 
     @GetMapping("/health")
     public String healthCheck() {
@@ -26,34 +34,29 @@ public class LendingController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> addLending(@RequestBody LendingDTO lendingDTO) {
-        System.out.println(lendingDTO);
+        lendingService.addLending(lendingDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping
     public ResponseEntity<Void> deleteLending(@RequestParam("lendingId") String lendingId) {
-        System.out.println(lendingId);
+        lendingService.deleteLending(lendingId);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping(value = "/{lendingId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateLending(@PathVariable String lendingId, @RequestBody LendingDTO lendingDTO) {
-        System.out.println(lendingId);
-        System.out.println(lendingDTO);
+        lendingService.updateLending(lendingId, lendingDTO);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{lendingId}")
     public ResponseEntity<LendingDTO> getLendingById(@PathVariable String lendingId) {
-        System.out.println("Get lending by id for " + lendingId);
-        return ResponseEntity.ok(new LendingDTO(
-            "L12345",
-            "Effective Java",
-            "M12345",
-            "2025-02-01",
-            "2025-02-15",
-            true,
-            1,
-            10.00));
+        return ResponseEntity.ok(lendingService.getLendingById(lendingId));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<LendingDTO>> getAllLending() {
+        return ResponseEntity.ok(lendingService.getAllLending());
     }
 }
