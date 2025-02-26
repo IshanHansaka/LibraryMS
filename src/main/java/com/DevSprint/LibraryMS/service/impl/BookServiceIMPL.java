@@ -7,12 +7,15 @@ import org.springframework.stereotype.Service;
 
 import com.DevSprint.LibraryMS.dto.BookDTO;
 import com.DevSprint.LibraryMS.service.BookService;
+import com.DevSprint.LibraryMS.util.UtilData;
 
 @Service
 public class BookServiceIMPL implements BookService {
 
     @Override
     public void addBook(BookDTO bookDTO) {
+        //Business Process
+        bookDTO.setBookId(UtilData.generateBookId());
         System.out.println(bookDTO);
     }
 
