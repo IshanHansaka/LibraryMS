@@ -1,10 +1,12 @@
 package com.DevSprint.LibraryMS.util;
 
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.UUID;
 
 public class UtilData {
     //Generate respective IDs
-
     public static String generateBookId() {
         return "B/" + UUID.randomUUID();
     }
@@ -19,5 +21,14 @@ public class UtilData {
 
     public static String generateLendingId() {
         return "L/" + UUID.randomUUID();
+    }
+
+    //Generate last update data & time
+    public static LocalDate generateTodayDate() {
+        return LocalDate.now();
+    }
+
+    public static Time generateCurrentTime() {
+        return Time.valueOf(LocalTime.now());
     }
 }
