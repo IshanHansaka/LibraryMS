@@ -3,6 +3,7 @@ package com.DevSprint.LibraryMS.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.DevSprint.LibraryMS.dto.BookDTO;
+import com.DevSprint.LibraryMS.service.BookService;
 
 @RestController // handle http req & res
 @RequestMapping("api/v1/books") // industry best practise
 public class BookController {
+
+    @Autowired
+    private BookService bookService;
 
     @GetMapping("/health")
     public String healthCheck() {
@@ -29,7 +34,7 @@ public class BookController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> addBook(@RequestBody BookDTO bookDTO) {
-        System.out.println(bookDTO);
+        bookService.addBook(bookDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
