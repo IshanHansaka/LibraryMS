@@ -46,7 +46,7 @@ public class LendingController {
 
     @PatchMapping(value = "/{lendingId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateLending(@PathVariable String lendingId, @RequestBody LendingDTO lendingDTO) {
-        lendingService.updateLending(lendingId, lendingDTO);
+        lendingService.updateLending(lendingId);
         return ResponseEntity.noContent().build();
     }
 
