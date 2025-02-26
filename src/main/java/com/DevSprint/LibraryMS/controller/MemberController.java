@@ -1,5 +1,7 @@
 package com.DevSprint.LibraryMS.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +16,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.DevSprint.LibraryMS.dto.MemberDTO;
+import com.DevSprint.LibraryMS.service.MemberService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("api/v1/members")
+@RequiredArgsConstructor //constructor injection
 public class MemberController {
+
+    public final MemberService memberService;
 
     @GetMapping("/health")
     public String healthCheck() {
@@ -26,30 +34,29 @@ public class MemberController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> addMember(@RequestBody MemberDTO memberDTO) {
-        System.out.println(memberDTO);
+        memberService.addMemeber(memberDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping
     public ResponseEntity<Void> deleteMember(@RequestParam("memberId") String memberId) {
-        System.out.println(memberId);
+        memberService.deleteMember(memberId);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping(value = "/{memberId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateMember(@PathVariable String memberId, @RequestBody MemberDTO memberDTO) {
-        System.out.println(memberId);
-        System.out.println(memberDTO);
+        memberService.updateMember(memberId, memberDTO);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{memberId}")
     public ResponseEntity<MemberDTO> getMemberById(@PathVariable String memberId) {
-        System.out.println("Get member by id for " + memberId);
-        return ResponseEntity.ok(new MemberDTO(
-                "M001",
-                "John",
-                "john.doe@example.com",
-                "Addison-Wesley"));
+        return ResponseEntity.ok(memberService.getMemberById(memberId));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<MemberDTO>> getAllMembers() {
+        return ResponseEntity.ok(memberService.getAllMembers());
     }
 }
