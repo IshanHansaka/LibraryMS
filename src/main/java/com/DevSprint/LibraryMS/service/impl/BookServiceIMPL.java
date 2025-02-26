@@ -16,6 +16,8 @@ public class BookServiceIMPL implements BookService {
     public void addBook(BookDTO bookDTO) {
         //Business Process
         bookDTO.setBookId(UtilData.generateBookId());
+        bookDTO.setLastUpdateDate(UtilData.generateTodayDate());
+        bookDTO.setLastUpdateTime(UtilData.generateCurrentTime());
         System.out.println(bookDTO);
     }
 
@@ -42,8 +44,6 @@ public class BookServiceIMPL implements BookService {
         book.setPrice(45.99);
         book.setTotalQty(100);
         book.setAvailableQty(75);
-        book.setLastUpdateDate("2025-02-26");
-        book.setLastUpdateTime("14:30:00");
         return book;
     };
 
@@ -61,8 +61,6 @@ public class BookServiceIMPL implements BookService {
         book1.setPrice(45.99);
         book1.setTotalQty(100);
         book1.setAvailableQty(75);
-        book1.setLastUpdateDate("2025-02-26");
-        book1.setLastUpdateTime("14:30:00");
 
         BookDTO book2 = new BookDTO();
         book2.setBookId("67890");
@@ -74,8 +72,6 @@ public class BookServiceIMPL implements BookService {
         book2.setPrice(40.99);
         book2.setTotalQty(80);
         book2.setAvailableQty(60);
-        book2.setLastUpdateDate("2025-03-15");
-        book2.setLastUpdateTime("10:00:00");
 
         BookDTO book3 = new BookDTO();
         book3.setBookId("11223");
@@ -87,8 +83,6 @@ public class BookServiceIMPL implements BookService {
         book3.setPrice(50.99);
         book3.setTotalQty(70);
         book3.setAvailableQty(50);
-        book3.setLastUpdateDate("2025-04-10");
-        book3.setLastUpdateTime("16:45:00");
 
         bookList.add(book1);
         bookList.add(book2);

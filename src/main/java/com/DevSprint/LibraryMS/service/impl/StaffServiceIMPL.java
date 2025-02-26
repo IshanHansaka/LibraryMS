@@ -8,12 +8,15 @@ import org.springframework.stereotype.Service;
 import com.DevSprint.LibraryMS.dto.Role;
 import com.DevSprint.LibraryMS.dto.StaffDTO;
 import com.DevSprint.LibraryMS.service.StaffService;
+import com.DevSprint.LibraryMS.util.UtilData;
 
 @Service
 public class StaffServiceIMPL implements StaffService {
 
     @Override
     public void addStaffMember(StaffDTO staffDTO) {
+        staffDTO.setStaffId(UtilData.generateStaffId());
+        staffDTO.setLastUpdate(UtilData.generateTodayDate());
         System.out.println(staffDTO);
     };
 

@@ -7,11 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.DevSprint.LibraryMS.dto.LendingDTO;
 import com.DevSprint.LibraryMS.service.LendingService;
+import com.DevSprint.LibraryMS.util.UtilData;
 
 @Service
 public class LendingServiceIMPL implements LendingService{
     @Override
     public void addLending(LendingDTO lendingDTO) {
+        lendingDTO.setLendingId(UtilData.generateLendingId());
         System.out.println(lendingDTO);
     };
 
