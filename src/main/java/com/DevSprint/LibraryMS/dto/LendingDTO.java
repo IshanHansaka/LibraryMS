@@ -16,6 +16,6 @@ public class LendingDTO implements Serializable{
     private String lendingDate;
     private String returnDate;
     private Boolean isActiveLending;
-    private Integer overdueDays;
+    private Long overdueDays;
     private Double fineAmount;
 }
