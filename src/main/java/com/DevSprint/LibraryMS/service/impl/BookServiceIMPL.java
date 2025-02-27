@@ -1,11 +1,14 @@
 package com.DevSprint.LibraryMS.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.DevSprint.LibraryMS.dao.BookRepository;
 import com.DevSprint.LibraryMS.dto.BookDTO;
+import com.DevSprint.LibraryMS.entities.BookEntitiy;
+import com.DevSprint.LibraryMS.exception.BookNotFoundException;
 import com.DevSprint.LibraryMS.service.BookService;
 import com.DevSprint.LibraryMS.util.EntityDTOConvert;
 import com.DevSprint.LibraryMS.util.UtilData;
@@ -36,6 +39,12 @@ public class BookServiceIMPL implements BookService {
 
     @Override
     public void deleteBook(String bookId) {
+        // is bookId exist
+        Optional<BookEntitiy> foundBook = bookRepository.findById(bookId);
+        if (!foundBook.isPresent()) {
+            throw new BookNotFoundException("Book not found");
+        }
+        bookRepository.deleteById(bookId);
     }
 
     @Override

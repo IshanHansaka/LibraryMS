@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.DevSprint.LibraryMS.dto.BookDTO;
+import com.DevSprint.LibraryMS.exception.BookNotFoundException;
 import com.DevSprint.LibraryMS.service.BookService;
 
 import lombok.RequiredArgsConstructor;
@@ -34,9 +35,17 @@ public class BookController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteBook(@RequestParam("bookId") String bookId) {
-        bookService.deleteBook(bookId);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deleteBook(@RequestParam("bookIdKey") String bookId) {
+        try {
+            bookService.deleteBook(bookId);
+            return ResponseEntity.noContent().build();
+        } catch (BookNotFoundException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PatchMapping(value = "/{bookId}", consumes = MediaType.APPLICATION_JSON_VALUE)
