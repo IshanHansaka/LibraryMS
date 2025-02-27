@@ -21,13 +21,13 @@ public class LendingEntity {
     private String lendingId;
 
     @ManyToOne
-    @JoinColumn(name = "bookId",nullable = false)
+    @JoinColumn(name = "bookId", nullable = false)
     private BookEntitiy book;
 
     @ManyToOne
-    @JoinColumn(name = "memberId",nullable = false)
+    @JoinColumn(name = "memberId", nullable = false)
     private MemberEntity member;
-    
+
     private LocalDate lendingDate;
     private LocalDate returnDate;
     private Boolean isActiveLending;

@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("api/v1/members")
-@RequiredArgsConstructor //constructor injection
+@RequiredArgsConstructor // constructor injection
 public class MemberController {
 
     public final MemberService memberService;

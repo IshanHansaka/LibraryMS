@@ -45,8 +45,8 @@ public class StaffServiceIMPL implements StaffService {
     };
 
     @Override
-    public List <StaffDTO> getAllStaff() {
-        List <StaffDTO> staffList = new ArrayList<>();
+    public List<StaffDTO> getAllStaff() {
+        List<StaffDTO> staffList = new ArrayList<>();
 
         StaffDTO staff1 = new StaffDTO();
         staff1.setStaffId("S12345");

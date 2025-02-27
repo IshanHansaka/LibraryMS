@@ -14,7 +14,7 @@ public class BookServiceIMPL implements BookService {
 
     @Override
     public void addBook(BookDTO bookDTO) {
-        //Business Process
+        // Business Process
         bookDTO.setBookId(UtilData.generateBookId());
         bookDTO.setLastUpdateDate(UtilData.generateTodayDate());
         bookDTO.setLastUpdateTime(UtilData.generateCurrentTime());
@@ -50,7 +50,7 @@ public class BookServiceIMPL implements BookService {
     @Override
     public List<BookDTO> getAllBooks() {
         List<BookDTO> bookList = new ArrayList<>();
-        
+
         BookDTO book1 = new BookDTO();
         book1.setBookId("12345");
         book1.setBookName("Effective Java");

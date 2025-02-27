@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class StaffDTO implements Serializable{
+public class StaffDTO implements Serializable {
     private String staffId;
     private String firstName;
     private String lastName;

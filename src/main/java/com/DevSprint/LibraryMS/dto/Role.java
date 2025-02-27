@@ -1,5 +1,5 @@
 package com.DevSprint.LibraryMS.dto;
 
 public enum Role {
-    LIBRARIAN,ADMIN,OFFICER
+    LIBRARIAN, ADMIN, OFFICER
 }

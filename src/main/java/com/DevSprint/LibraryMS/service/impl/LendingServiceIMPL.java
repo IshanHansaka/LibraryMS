@@ -14,7 +14,7 @@ import com.DevSprint.LibraryMS.util.UtilData;
 
 @Service
 public class LendingServiceIMPL implements LendingService {
-    
+
     @Value("${perDayFine}") // Value injection
     private Double fineAmount;
 
@@ -36,7 +36,7 @@ public class LendingServiceIMPL implements LendingService {
 
     @Override
     public void updateLending(String lendingId) {
-        //Todo
+        // Todo
     };
 
     @Override
@@ -87,13 +87,13 @@ public class LendingServiceIMPL implements LendingService {
     };
 
     private Long calcOverDue() {
-        //Today
+        // Today
         LocalDate today = UtilData.generateTodayDate();
         LocalDate returDate = UtilData.generateReturnDateCalc();
 
         if (returDate.isBefore(today)) {
             return ChronoUnit.DAYS.between(today, returDate);
-        } 
+        }
         return 0L;
     }
 

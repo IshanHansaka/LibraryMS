@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class LendingDTO implements Serializable{
+public class LendingDTO implements Serializable {
     private String lendingId;
     private String book;
     private String member;

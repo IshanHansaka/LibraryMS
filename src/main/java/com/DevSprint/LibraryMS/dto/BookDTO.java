@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class BookDTO implements Serializable{
+public class BookDTO implements Serializable {
     private String bookId;
     private String bookName;
     private String author;
@@ -21,6 +21,6 @@ public class BookDTO implements Serializable{
     private Double price;
     private Integer totalQty;
     private Integer availableQty;
-    private LocalDate lastUpdateDate;    
+    private LocalDate lastUpdateDate;
     private Time lastUpdateTime;
 }

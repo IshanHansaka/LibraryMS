@@ -39,8 +39,8 @@ public class MemberServiceIMPL implements MemberService {
     };
 
     @Override
-    public List <MemberDTO> getAllMembers() {
-        List <MemberDTO> memberList = new ArrayList<>();
+    public List<MemberDTO> getAllMembers() {
+        List<MemberDTO> memberList = new ArrayList<>();
 
         MemberDTO member1 = new MemberDTO();
         member1.setMemberId("M12345");

@@ -29,9 +29,9 @@ public class BookEntitiy {
     private Double price;
     private Integer totalQty;
     private Integer availableQty;
-    private LocalDate lastUpdateDate;    
+    private LocalDate lastUpdateDate;
     private Time lastUpdateTime;
-    
-    @OneToMany(mappedBy = "book",cascade = CascadeType.ALL,orphanRemoval = true)
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LendingEntity> lendings;
 }
