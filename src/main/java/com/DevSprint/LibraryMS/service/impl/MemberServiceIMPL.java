@@ -5,12 +5,21 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.DevSprint.LibraryMS.dao.MemberRepository;
 import com.DevSprint.LibraryMS.dto.MemberDTO;
 import com.DevSprint.LibraryMS.service.MemberService;
+import com.DevSprint.LibraryMS.util.EntityDTOConvert;
 import com.DevSprint.LibraryMS.util.UtilData;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor // Constructor injection
 public class MemberServiceIMPL implements MemberService {
+
+    private final MemberRepository memberRepository;
+    private final EntityDTOConvert entityDTOConvert;
+    
     @Override
     public void addMemeber(MemberDTO memberDTO) {
         memberDTO.setMemberId(UtilData.generateMemberId());
