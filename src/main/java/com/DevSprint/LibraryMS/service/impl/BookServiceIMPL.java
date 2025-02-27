@@ -49,11 +49,36 @@ public class BookServiceIMPL implements BookService {
 
     @Override
     public void updateBook(String bookId, BookDTO bookDTO) {
+        // is bookId is exist
+        Optional<BookEntitiy> foundBook = bookRepository.findById(bookId);
+        if (!foundBook.isPresent()) {
+            throw new BookNotFoundException("Book not found");
+        }
+        foundBook.get().setBookName(bookDTO.getBookName());
+        foundBook.get().setAuthor(bookDTO.getAuthor());
+        foundBook.get().setEdition(bookDTO.getEdition());
+        foundBook.get().setPublisher(bookDTO.getAuthor());
+        foundBook.get().setPrice(bookDTO.getPrice());
+        foundBook.get().setTotalQty(bookDTO.getTotalQty());
+        foundBook.get().setAvailableQty(bookDTO.getAvailableQty());
+        foundBook.get().setLastUpdateDate(UtilData.generateTodayDate());
+        foundBook.get().setLastUpdateTime(UtilData.generateCurrentTime());
     }
 
     @Override
     public BookDTO getBookById(String bookId) {
-        return null;
+        Optional<BookEntitiy> foundBook = bookRepository.findById(bookId);
+        if (!foundBook.isPresent()) {
+            throw new BookNotFoundException("Selected book not found");
+        }
+
+        /*
+        BookEntitiy selectedBookEntitiy = bookRepository.getReferenceById(bookId);
+        BookDTO selectBookDTO = entityDTOConvert.ToBookDTO(selectedBookEntitiy);
+        return selectBookDTO;
+        */
+
+        return entityDTOConvert.ToBookDTO(bookRepository.getReferenceById(bookId));
     };
 
     @Override

@@ -50,14 +50,30 @@ public class BookController {
 
     @PatchMapping(value = "/{bookId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateBook(@PathVariable String bookId, @RequestBody BookDTO bookDTO) {
-        bookService.updateBook(bookId, bookDTO);
-        return ResponseEntity.noContent().build();
+        try {
+            bookService.updateBook(bookId, bookDTO);
+            return ResponseEntity.noContent().build();
+        } catch (BookNotFoundException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/{bookId}")
     public ResponseEntity<BookDTO> getBookById(@PathVariable String bookId) {
-        var selectedBook = bookService.getBookById(bookId);
-        return ResponseEntity.ok(selectedBook);
+        try {
+            var selectedBook = bookService.getBookById(bookId);
+            return ResponseEntity.ok(selectedBook);
+        } catch (BookNotFoundException e) {
+            e.printStackTrace();
+            return new ResponseEntity<> (HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<> (HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping
