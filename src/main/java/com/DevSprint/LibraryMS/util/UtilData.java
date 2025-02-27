@@ -8,19 +8,19 @@ import java.util.UUID;
 public class UtilData {
     //Generate respective IDs
     public static String generateBookId() {
-        return "B/" + UUID.randomUUID();
+        return "B-" + UUID.randomUUID();
     }
 
     public static String generateMemberId() {
-        return "M/" + UUID.randomUUID();
+        return "M-" + UUID.randomUUID();
     }
 
     public static String generateStaffId() {
-        return "S/" + UUID.randomUUID();
+        return "S-" + UUID.randomUUID();
     }
 
     public static String generateLendingId() {
-        return "L/" + UUID.randomUUID();
+        return "L-" + UUID.randomUUID();
     }
 
     //Generate last update data & time
