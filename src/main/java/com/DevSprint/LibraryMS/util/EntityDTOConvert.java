@@ -7,7 +7,9 @@ import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Component;
 
 import com.DevSprint.LibraryMS.dto.BookDTO;
+import com.DevSprint.LibraryMS.dto.MemberDTO;
 import com.DevSprint.LibraryMS.entities.BookEntitiy;
+import com.DevSprint.LibraryMS.entities.MemberEntity;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +30,20 @@ public class EntityDTOConvert {
 
     public List<BookDTO> toBookDTOList(List<BookEntitiy> bookEntitiyList) {
         return modelMapper.map(bookEntitiyList, new TypeToken<List<BookDTO>>() {
+        }.getType());
+    }
+
+    // Member
+    public MemberDTO toMemberDTO(MemberEntity memberEntity) {
+        return modelMapper.map(memberEntity, MemberDTO.class);
+    }
+
+    public MemberEntity toMemberEntity(MemberDTO memberDTO) {
+        return modelMapper.map(memberDTO, MemberEntity.class);
+    }
+
+    public List<MemberDTO> toMemberDTOList(List<MemberEntity> memberEntityList) {
+        return modelMapper.map(memberEntityList, new TypeToken<List<MemberDTO>>() {
         }.getType());
     }
 }
