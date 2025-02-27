@@ -27,11 +27,6 @@ public class LendingController {
 
     public final LendingService lendingService;
 
-    @GetMapping("/health")
-    public String healthCheck() {
-        return "Lending Controller running";
-    }
-
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> addLending(@RequestBody LendingDTO lendingDTO) {
         lendingService.addLending(lendingDTO);
