@@ -4,7 +4,7 @@
 ![Java](https://img.shields.io/badge/Java-21-white)  
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.2-white)  
 ![Maven](https://img.shields.io/badge/Maven-Build%20Tool-white)  
-<!--![PostgreSQL](https://img.shields.io/badge/PostgreSQL-AWS%20RDS-white)-->
+![MySQL](https://img.shields.io/badge/MySQL-Database-white)
 
 ## Table of Contents
 - [Project Overview](#project-overview)
@@ -37,9 +37,9 @@ Features include:
 - **Java 21** – Backend language  
 - **Spring Boot 3.4.2** – Framework  
 - **Maven** – Build tool  
-<!--- **Spring Data JPA** – ORM for PostgreSQL
-- **PostgreSQL (AWS RDS)** – Cloud-based relational database  
-- **Spring Security & JWT** – Authentication & authorization  
+- **Spring Data JPA** – ORM for MySQL
+- **MySQL** – Locally hosted relational database 
+<!--- **Spring Security & JWT** – Authentication & authorization  
 - **Docker** – Containerized deployment  -->
 
 ---
