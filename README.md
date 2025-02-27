@@ -9,7 +9,7 @@
 ## Table of Contents
 - [Project Overview](#project-overview)
 - [Tech Stack](#tech-stack)
-- [Setup & Installation](#setup--installation)
+- [Install Dependencies](#install-dependencies)
 <!-- - [Database Configuration](#database-configuration)
 - [API Endpoints](#api-endpoints)
 - [Running the Project](#running-the-project)
