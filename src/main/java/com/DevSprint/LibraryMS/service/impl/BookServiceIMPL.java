@@ -33,7 +33,7 @@ public class BookServiceIMPL implements BookService {
         bookDTO.setLastUpdateTime(UtilData.generateCurrentTime());
 
         // pass to dao
-        var bookEntity = entityDTOConvert.ToBookEntity(bookDTO);
+        var bookEntity = entityDTOConvert.toBookEntity(bookDTO);
         bookRepository.save(bookEntity);
     }
 
@@ -78,11 +78,11 @@ public class BookServiceIMPL implements BookService {
         return selectBookDTO;
         */
 
-        return entityDTOConvert.ToBookDTO(bookRepository.getReferenceById(bookId));
+        return entityDTOConvert.toBookDTO(bookRepository.getReferenceById(bookId));
     };
 
     @Override
     public List<BookDTO> getAllBooks() {
-        return entityDTOConvert.ToBookDTOList(bookRepository.findAll());
+        return entityDTOConvert.toBookDTOList(bookRepository.findAll());
     }
 }

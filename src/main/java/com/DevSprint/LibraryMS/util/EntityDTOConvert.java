@@ -18,15 +18,15 @@ public class EntityDTOConvert {
     private final ModelMapper modelMapper;
 
     // Book
-    public BookEntitiy ToBookEntity(BookDTO bookDTO) {
+    public BookEntitiy toBookEntity(BookDTO bookDTO) {
         return modelMapper.map(bookDTO, BookEntitiy.class);
     }
 
-    public BookDTO ToBookDTO(BookEntitiy bookEntitiy) {
+    public BookDTO toBookDTO(BookEntitiy bookEntitiy) {
         return modelMapper.map(bookEntitiy, BookDTO.class);
     }
 
-    public List<BookDTO> ToBookDTOList(List<BookEntitiy> bookEntitiyList) {
+    public List<BookDTO> toBookDTOList(List<BookEntitiy> bookEntitiyList) {
         return modelMapper.map(bookEntitiyList, new TypeToken<List<BookDTO>>() {
         }.getType());
     }
