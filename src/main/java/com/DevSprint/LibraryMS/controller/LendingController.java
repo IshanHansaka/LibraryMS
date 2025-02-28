@@ -44,7 +44,7 @@ public class LendingController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (EnoughBooksNotFoundException | DataPersistException e) {
             e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
