@@ -12,7 +12,7 @@ import com.DevSprint.LibraryMS.entities.BookEntity;
 
 @Component
 public class LendingMapping {
-    public static LendingDTO toLendingDTO(LendingEntity lendingEntity) {
+    public LendingDTO toLendingDTO(LendingEntity lendingEntity) {
         var lendingDTO = new LendingDTO();
         lendingDTO.setLendingId(lendingEntity.getLendingId());
         lendingDTO.setBook(lendingEntity.getBook().getBookId());
@@ -25,7 +25,7 @@ public class LendingMapping {
         return lendingDTO;
     }
 
-    public static LendingEntity toLendingEntity(LendingDTO lendingDTO, BookEntity bookEntity,
+    public LendingEntity toLendingEntity(LendingDTO lendingDTO, BookEntity bookEntity,
             MemberEntity memberEntity) {
         var lendingEntity = new LendingEntity();
         lendingEntity.setLendingId(lendingDTO.getLendingId());
