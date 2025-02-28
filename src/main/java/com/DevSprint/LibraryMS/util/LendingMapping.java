@@ -4,14 +4,16 @@ import org.springframework.stereotype.Component;
 
 import com.DevSprint.LibraryMS.dto.LendingDTO;
 import com.DevSprint.LibraryMS.entities.LendingEntity;
+import com.DevSprint.LibraryMS.entities.MemberEntity;
+import com.DevSprint.LibraryMS.entities.BookEntitiy;
 
 @Component
 public class LendingMapping {
     public static LendingDTO toLendingDTO(LendingEntity lendingEntity) {
         var lendingDTO = new LendingDTO();
         lendingDTO.setLendingId(lendingEntity.getLendingId());
-        lendingDTO.setBook(lendingEntity.getBook());
-        lendingDTO.setMember(lendingEntity.getMember());
+        lendingDTO.setBook(lendingEntity.getBook().getBookId());
+        lendingDTO.setMember(lendingEntity.getMember().getMemberId());
         lendingDTO.setLendingDate(lendingEntity.getLendingDate());
         lendingDTO.setReturnDate(lendingEntity.getReturnDate());
         lendingDTO.setIsActiveLending(lendingEntity.getIsActiveLending());
@@ -20,11 +22,11 @@ public class LendingMapping {
         return lendingDTO;
     }
 
-    public static LendingEntity toLendingEntity(LendingDTO lendingDTO) {
+    public static LendingEntity toLendingEntity(LendingDTO lendingDTO, BookEntitiy bookEntity, MemberEntity memberEntity) {
         var lendingEntity = new LendingEntity();
         lendingEntity.setLendingId(lendingDTO.getLendingId());
-        lendingEntity.setBook(lendingDTO.getBook());
-        lendingEntity.setMember(lendingDTO.getMember());
+        lendingEntity.setBook(bookEntity);
+        lendingEntity.setMember(memberEntity);
         lendingEntity.setLendingDate(lendingDTO.getLendingDate());
         lendingEntity.setReturnDate(lendingDTO.getReturnDate());
         lendingEntity.setIsActiveLending(lendingDTO.getIsActiveLending());
