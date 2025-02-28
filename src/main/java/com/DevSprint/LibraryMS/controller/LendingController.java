@@ -19,7 +19,7 @@ import com.DevSprint.LibraryMS.dto.LendingDTO;
 import com.DevSprint.LibraryMS.exception.BookNotFoundException;
 import com.DevSprint.LibraryMS.exception.DataPersistException;
 import com.DevSprint.LibraryMS.exception.EnoughBooksNotFoundException;
-import com.DevSprint.LibraryMS.exception.LendingDataNotFound;
+import com.DevSprint.LibraryMS.exception.LendingDataNotFoundException;
 import com.DevSprint.LibraryMS.exception.MemberNotFoundException;
 import com.DevSprint.LibraryMS.service.LendingService;
 
@@ -60,7 +60,7 @@ public class LendingController {
         try {
             lendingService.deleteLending(lendingId);
             return ResponseEntity.noContent().build();
-        } catch (LendingDataNotFound e) {
+        } catch (LendingDataNotFoundException e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
@@ -77,7 +77,7 @@ public class LendingController {
         try {
             lendingService.updateLending(lendingId);
             return ResponseEntity.noContent().build();
-        } catch (LendingDataNotFound e) {
+        } catch (LendingDataNotFoundException e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
@@ -93,7 +93,7 @@ public class LendingController {
         }
         try {
             return ResponseEntity.ok(lendingService.getLendingById(lendingId));
-        } catch (LendingDataNotFound e) {
+        } catch (LendingDataNotFoundException e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
