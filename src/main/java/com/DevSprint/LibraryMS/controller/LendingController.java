@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.DevSprint.LibraryMS.dto.LendingDTO;
+import com.DevSprint.LibraryMS.exception.BookNotFoundException;
+import com.DevSprint.LibraryMS.exception.DataPersistException;
+import com.DevSprint.LibraryMS.exception.EnoughBooksNotFoundException;
+import com.DevSprint.LibraryMS.exception.MemberNotFoundException;
 import com.DevSprint.LibraryMS.service.LendingService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,8 +33,22 @@ public class LendingController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> addLending(@RequestBody LendingDTO lendingDTO) {
-        lendingService.addLending(lendingDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        if (lendingDTO == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        try {
+            lendingService.addLending(lendingDTO);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (BookNotFoundException | MemberNotFoundException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (EnoughBooksNotFoundException | DataPersistException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping
