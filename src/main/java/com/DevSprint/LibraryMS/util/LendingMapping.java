@@ -1,7 +1,7 @@
 package com.DevSprint.LibraryMS.util;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -40,20 +40,25 @@ public class LendingMapping {
     }
 
     public List<LendingDTO> toLendingDTOList(List<LendingEntity> lendingEntityList) {
-        List<LendingDTO> lendingDTOList = new ArrayList<>();
-        for (LendingEntity lendingEntity : lendingEntityList) {
-            LendingDTO lendingDTO = new LendingDTO();
-            lendingDTO.setLendingId(lendingEntity.getLendingId());
-            lendingDTO.setBook(lendingEntity.getBook().getBookId());
-            lendingDTO.setMember(lendingEntity.getMember().getMemberId());
-            lendingDTO.setLendingDate(lendingEntity.getLendingDate());
-            lendingDTO.setReturnDate(lendingEntity.getReturnDate());
-            lendingDTO.setIsActiveLending(lendingEntity.getIsActiveLending());
-            lendingDTO.setOverdueDays(lendingEntity.getOverdueDays());
-            lendingDTO.setFineAmount(lendingEntity.getFineAmount());
+        return lendingEntityList.stream().map(entity -> {
+            LendingDTO lendingDTOData = new LendingDTO();
+            lendingDTOData.setLendingId(entity.getLendingId());
 
-            lendingDTOList.add(lendingDTO);
-        }
-        return lendingDTOList;
+            if (entity.getBook() != null) {
+                lendingDTOData.setBook(entity.getBook().getBookId());
+            }
+
+            if (entity.getMember() != null) {
+                lendingDTOData.setMember(entity.getMember().getMemberId());
+            }
+
+            lendingDTOData.setLendingDate(entity.getLendingDate());
+            lendingDTOData.setReturnDate(entity.getReturnDate());
+            lendingDTOData.setIsActiveLending(entity.getIsActiveLending());
+            lendingDTOData.setOverdueDays(entity.getOverdueDays());
+            lendingDTOData.setFineAmount(entity.getFineAmount());
+
+            return lendingDTOData;
+        }).collect(Collectors.toList());
     }
 }
