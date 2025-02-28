@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import com.DevSprint.LibraryMS.dto.LendingDTO;
 import com.DevSprint.LibraryMS.entities.LendingEntity;
 import com.DevSprint.LibraryMS.entities.MemberEntity;
-import com.DevSprint.LibraryMS.entities.BookEntitiy;
+import com.DevSprint.LibraryMS.entities.BookEntity;
 
 @Component
 public class LendingMapping {
@@ -22,7 +22,7 @@ public class LendingMapping {
         return lendingDTO;
     }
 
-    public static LendingEntity toLendingEntity(LendingDTO lendingDTO, BookEntitiy bookEntity, MemberEntity memberEntity) {
+    public static LendingEntity toLendingEntity(LendingDTO lendingDTO, BookEntity bookEntity, MemberEntity memberEntity) {
         var lendingEntity = new LendingEntity();
         lendingEntity.setLendingId(lendingDTO.getLendingId());
         lendingEntity.setBook(bookEntity);

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.DevSprint.LibraryMS.dto.BookDTO;
 import com.DevSprint.LibraryMS.dto.MemberDTO;
 import com.DevSprint.LibraryMS.dto.StaffDTO;
-import com.DevSprint.LibraryMS.entities.BookEntitiy;
+import com.DevSprint.LibraryMS.entities.BookEntity;
 import com.DevSprint.LibraryMS.entities.MemberEntity;
 import com.DevSprint.LibraryMS.entities.StaffEntity;
 
@@ -22,15 +22,15 @@ public class EntityDTOConvert {
     private final ModelMapper modelMapper;
 
     // Book
-    public BookEntitiy toBookEntity(BookDTO bookDTO) {
-        return modelMapper.map(bookDTO, BookEntitiy.class);
+    public BookEntity toBookEntity(BookDTO bookDTO) {
+        return modelMapper.map(bookDTO, BookEntity.class);
     }
 
-    public BookDTO toBookDTO(BookEntitiy bookEntitiy) {
+    public BookDTO toBookDTO(BookEntity bookEntitiy) {
         return modelMapper.map(bookEntitiy, BookDTO.class);
     }
 
-    public List<BookDTO> toBookDTOList(List<BookEntitiy> bookEntitiyList) {
+    public List<BookDTO> toBookDTOList(List<BookEntity> bookEntitiyList) {
         return modelMapper.map(bookEntitiyList, new TypeToken<List<BookDTO>>() {
         }.getType());
     }
