@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.DevSprint.LibraryMS.dto.MemberDTO;
+import com.DevSprint.LibraryMS.exception.MemberNotFoundException;
 import com.DevSprint.LibraryMS.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,25 +30,61 @@ public class MemberController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> addMember(@RequestBody MemberDTO memberDTO) {
+        if (memberDTO == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         memberService.addMemeber(memberDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping
     public ResponseEntity<Void> deleteMember(@RequestParam("memberId") String memberId) {
-        memberService.deleteMember(memberId);
-        return ResponseEntity.noContent().build();
+        if (memberId == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        try {
+            memberService.deleteMember(memberId);
+            return ResponseEntity.noContent().build();
+        } catch (MemberNotFoundException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PatchMapping(value = "/{memberId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateMember(@PathVariable String memberId, @RequestBody MemberDTO memberDTO) {
-        memberService.updateMember(memberId, memberDTO);
-        return ResponseEntity.noContent().build();
+        if (memberDTO == null || memberId == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        try {
+            memberService.updateMember(memberId, memberDTO);
+            return ResponseEntity.noContent().build();
+        } catch (MemberNotFoundException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/{memberId}")
     public ResponseEntity<MemberDTO> getMemberById(@PathVariable String memberId) {
-        return ResponseEntity.ok(memberService.getMemberById(memberId));
+        if (memberId == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        try {
+            return ResponseEntity.ok(memberService.getMemberById(memberId));
+        } catch (MemberNotFoundException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping
