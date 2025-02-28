@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.DevSprint.LibraryMS.dao.BookRepository;
 import com.DevSprint.LibraryMS.dto.BookDTO;
-import com.DevSprint.LibraryMS.entities.BookEntitiy;
+import com.DevSprint.LibraryMS.entities.BookEntity;
 import com.DevSprint.LibraryMS.exception.BookNotFoundException;
 import com.DevSprint.LibraryMS.service.BookService;
 import com.DevSprint.LibraryMS.util.EntityDTOConvert;
@@ -40,7 +40,7 @@ public class BookServiceIMPL implements BookService {
     @Override
     public void deleteBook(String bookId) {
         // is bookId exists
-        Optional<BookEntitiy> foundBook = bookRepository.findById(bookId);
+        Optional<BookEntity> foundBook = bookRepository.findById(bookId);
         if (!foundBook.isPresent()) {
             throw new BookNotFoundException("Book not found");
         }
@@ -50,7 +50,7 @@ public class BookServiceIMPL implements BookService {
     @Override
     public void updateBook(String bookId, BookDTO bookDTO) {
         // is bookId is exist
-        Optional<BookEntitiy> foundBook = bookRepository.findById(bookId);
+        Optional<BookEntity> foundBook = bookRepository.findById(bookId);
         if (!foundBook.isPresent()) {
             throw new BookNotFoundException("Book not found");
         }
@@ -67,7 +67,7 @@ public class BookServiceIMPL implements BookService {
 
     @Override
     public BookDTO getBookById(String bookId) {
-        Optional<BookEntitiy> foundBook = bookRepository.findById(bookId);
+        Optional<BookEntity> foundBook = bookRepository.findById(bookId);
         if (!foundBook.isPresent()) {
             throw new BookNotFoundException("Selected book not found");
         }
