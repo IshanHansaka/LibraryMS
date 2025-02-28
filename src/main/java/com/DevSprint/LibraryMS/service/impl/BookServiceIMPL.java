@@ -39,7 +39,7 @@ public class BookServiceIMPL implements BookService {
 
     @Override
     public void deleteBook(String bookId) {
-        // is bookId exist
+        // is bookId exists
         Optional<BookEntitiy> foundBook = bookRepository.findById(bookId);
         if (!foundBook.isPresent()) {
             throw new BookNotFoundException("Book not found");
