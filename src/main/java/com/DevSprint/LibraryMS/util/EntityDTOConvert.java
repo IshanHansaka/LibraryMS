@@ -8,8 +8,10 @@ import org.springframework.stereotype.Component;
 
 import com.DevSprint.LibraryMS.dto.BookDTO;
 import com.DevSprint.LibraryMS.dto.MemberDTO;
+import com.DevSprint.LibraryMS.dto.StaffDTO;
 import com.DevSprint.LibraryMS.entities.BookEntitiy;
 import com.DevSprint.LibraryMS.entities.MemberEntity;
+import com.DevSprint.LibraryMS.entities.StaffEntity;
 
 import lombok.RequiredArgsConstructor;
 
@@ -44,6 +46,20 @@ public class EntityDTOConvert {
 
     public List<MemberDTO> toMemberDTOList(List<MemberEntity> memberEntityList) {
         return modelMapper.map(memberEntityList, new TypeToken<List<MemberDTO>>() {
+        }.getType());
+    }
+
+    // Staff
+    public StaffDTO toStaffDTO(StaffEntity staffEntity) {
+        return modelMapper.map(staffEntity, StaffDTO.class);
+    }
+
+    public StaffEntity toStaffEntity(StaffDTO staffDTO) {
+        return modelMapper.map(staffDTO, StaffEntity.class);
+    }
+
+    public List<StaffDTO> toStaffDTOList(List<StaffEntity> staffEntityList) {
+        return modelMapper.map(staffEntityList, new TypeToken<List<StaffDTO>>() {
         }.getType());
     }
 }
