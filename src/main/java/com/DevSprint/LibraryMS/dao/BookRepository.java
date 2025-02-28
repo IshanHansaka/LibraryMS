@@ -14,7 +14,7 @@ public interface BookRepository extends JpaRepository<BookEntity, String> {
 
     // JPQL Query
     @Query("SELECT b.availableQty FROM BookEntity b WHERE b.bookId = :bookId")
-    Integer availableQty(@Param("bookID") String bookId);
+    Integer availableQty(@Param("bookId") String bookId);
 
     // Deduct book count based on lending
     @Modifying
