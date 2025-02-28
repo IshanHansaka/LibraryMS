@@ -19,6 +19,7 @@ import com.DevSprint.LibraryMS.dto.LendingDTO;
 import com.DevSprint.LibraryMS.exception.BookNotFoundException;
 import com.DevSprint.LibraryMS.exception.DataPersistException;
 import com.DevSprint.LibraryMS.exception.EnoughBooksNotFoundException;
+import com.DevSprint.LibraryMS.exception.LendingDataNotFound;
 import com.DevSprint.LibraryMS.exception.MemberNotFoundException;
 import com.DevSprint.LibraryMS.service.LendingService;
 
@@ -59,8 +60,13 @@ public class LendingController {
 
     @PatchMapping(value = "/{lendingId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateLending(@PathVariable String lendingId, @RequestBody LendingDTO lendingDTO) {
-        lendingService.updateLending(lendingId);
-        return ResponseEntity.noContent().build();
+        try {
+            lendingService.updateLending(lendingId);
+            return ResponseEntity.noContent().build();
+        } catch (LendingDataNotFound e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/{lendingId}")
