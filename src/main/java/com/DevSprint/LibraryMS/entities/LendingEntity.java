@@ -22,7 +22,7 @@ public class LendingEntity {
 
     @ManyToOne
     @JoinColumn(name = "bookId", nullable = false)
-    private BookEntitiy book;
+    private BookEntity book;
 
     @ManyToOne
     @JoinColumn(name = "memberId", nullable = false)
