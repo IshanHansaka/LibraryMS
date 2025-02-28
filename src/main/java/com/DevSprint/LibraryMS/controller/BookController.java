@@ -30,12 +30,18 @@ public class BookController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> addBook(@RequestBody BookDTO bookDTO) {
+        if (bookDTO == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         bookService.addBook(bookDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping
     public ResponseEntity<Void> deleteBook(@RequestParam("bookIdKey") String bookId) {
+        if (bookId == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         try {
             bookService.deleteBook(bookId);
             return ResponseEntity.noContent().build();
@@ -50,6 +56,9 @@ public class BookController {
 
     @PatchMapping(value = "/{bookId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateBook(@PathVariable String bookId, @RequestBody BookDTO bookDTO) {
+        if (bookDTO == null || bookId == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         try {
             bookService.updateBook(bookId, bookDTO);
             return ResponseEntity.noContent().build();
@@ -64,15 +73,18 @@ public class BookController {
 
     @GetMapping("/{bookId}")
     public ResponseEntity<BookDTO> getBookById(@PathVariable String bookId) {
+        if (bookId == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         try {
             var selectedBook = bookService.getBookById(bookId);
             return ResponseEntity.ok(selectedBook);
         } catch (BookNotFoundException e) {
             e.printStackTrace();
-            return new ResponseEntity<> (HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<> (HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
