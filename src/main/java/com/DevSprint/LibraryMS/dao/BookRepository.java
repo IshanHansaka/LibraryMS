@@ -26,5 +26,5 @@ public interface BookRepository extends JpaRepository<BookEntity, String> {
     @Modifying
     @Transactional
     @Query("UPDATE BookEntity b SET b.availableQty = b.availableQty + 1 WHERE b.bookId = :bookId")
-    Void addBookBasedOnLending(@Param("bookId") String bookId);
+    Integer addBookBasedOnLending(@Param("bookId") String bookId);
 }
