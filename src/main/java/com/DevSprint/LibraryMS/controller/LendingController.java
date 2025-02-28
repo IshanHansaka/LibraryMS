@@ -54,24 +54,51 @@ public class LendingController {
 
     @DeleteMapping
     public ResponseEntity<Void> deleteLending(@RequestParam("lendingId") String lendingId) {
-        lendingService.deleteLending(lendingId);
-        return ResponseEntity.noContent().build();
+        if (lendingId == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        try {
+            lendingService.deleteLending(lendingId);
+            return ResponseEntity.noContent().build();
+        } catch (LendingDataNotFound e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    @PatchMapping(value = "/{lendingId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> updateLending(@PathVariable String lendingId, @RequestBody LendingDTO lendingDTO) {
+    @PatchMapping("/{lendingId}")
+    public ResponseEntity<Void> updateLending(@PathVariable String lendingId) {
+        if (lendingId == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         try {
             lendingService.updateLending(lendingId);
             return ResponseEntity.noContent().build();
         } catch (LendingDataNotFound e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/{lendingId}")
     public ResponseEntity<LendingDTO> getLendingById(@PathVariable String lendingId) {
-        return ResponseEntity.ok(lendingService.getLendingById(lendingId));
+        if (lendingId == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        try {
+            return ResponseEntity.ok(lendingService.getLendingById(lendingId));
+        } catch (LendingDataNotFound e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping
