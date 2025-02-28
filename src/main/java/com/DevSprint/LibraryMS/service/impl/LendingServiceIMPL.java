@@ -2,102 +2,125 @@ package com.DevSprint.LibraryMS.service.impl;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.DevSprint.LibraryMS.dao.BookRepository;
+import com.DevSprint.LibraryMS.dao.LendingRepository;
+import com.DevSprint.LibraryMS.dao.MemberRepository;
 import com.DevSprint.LibraryMS.dto.LendingDTO;
+import com.DevSprint.LibraryMS.entities.BookEntity;
+import com.DevSprint.LibraryMS.entities.LendingEntity;
+import com.DevSprint.LibraryMS.entities.MemberEntity;
+import com.DevSprint.LibraryMS.exception.BookNotFoundException;
+import com.DevSprint.LibraryMS.exception.DataPersistException;
+import com.DevSprint.LibraryMS.exception.EnoughBooksNotFoundException;
+import com.DevSprint.LibraryMS.exception.LendingDataNotFoundException;
+import com.DevSprint.LibraryMS.exception.MemberNotFoundException;
 import com.DevSprint.LibraryMS.service.LendingService;
+import com.DevSprint.LibraryMS.util.LendingMapping;
 import com.DevSprint.LibraryMS.util.UtilData;
 
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
+@Transactional
 public class LendingServiceIMPL implements LendingService {
 
-    @Value("${perDayFine}") // Value injection
+    private final LendingMapping lendingMapping;
+    private final BookRepository bookRepository;
+    private final MemberRepository memberRepository;
+    private final LendingRepository lendingRepository;
+
+    @Value("${perDayFine}")
     private Double fineAmount;
 
     @Override
     public void addLending(LendingDTO lendingDTO) {
-        lendingDTO.setLendingId(UtilData.generateLendingId());
-        lendingDTO.setLendingDate(UtilData.generateTodayDate());
-        lendingDTO.setReturnDate(UtilData.generateReturnDate());
-        lendingDTO.setIsActiveLending(true);
-        lendingDTO.setOverdueDays(0L);
-        lendingDTO.setFineAmount(0.00);
-        System.out.println(lendingDTO);
-    };
+
+        // Get relevant book and member
+        var bookId = lendingDTO.getBook();
+        var memberId = lendingDTO.getMember();
+
+        // Check book & member existence
+        BookEntity bookEntity = bookRepository.findById(bookId)
+                .orElseThrow(() -> new BookNotFoundException("Book not found"));
+        MemberEntity memberEntity = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberNotFoundException("Member not found"));
+
+        // Check if there are sufficient copies of the book
+        if (bookRepository.availableQty(bookId) > 0) {
+            if (bookRepository.deductBasedOnLending(bookId) > 0) {
+                lendingDTO.setLendingId(UtilData.generateLendingId());
+                lendingDTO.setLendingDate(UtilData.generateTodayDate());
+                lendingDTO.setReturnDate(UtilData.generateReturnDate());
+                lendingDTO.setIsActiveLending(true);
+                lendingDTO.setOverdueDays(0L);
+                lendingDTO.setFineAmount(0.00);
+                lendingRepository.save(lendingMapping.toLendingEntity(lendingDTO, bookEntity, memberEntity));
+            } else {
+                throw new DataPersistException("Can't update book data with 0 available quantity");
+            }
+        } else {
+            throw new EnoughBooksNotFoundException("Not enough books to proceed");
+        }
+    }
 
     @Override
     public void deleteLending(String lendingId) {
-        System.out.println(lendingId);
-    };
+        var foundLending = lendingRepository.findById(lendingId).orElseThrow(() -> new LendingDataNotFoundException("Lending data not found"));
+        lendingRepository.deleteById(lendingId);
+        
+        // Add the book when delete the lending record
+        if (foundLending.getIsActiveLending() == true) {
+            bookRepository.addBookBasedOnLending(foundLending.getBook().getBookId());
+        }
+    }
 
     @Override
     public void updateLending(String lendingId) {
-        // Todo
-    };
+
+        // Check lendign is exist
+        LendingEntity foundLending = lendingRepository.findById(lendingId)
+                .orElseThrow(() -> new LendingDataNotFoundException("Lending data not found"));
+
+        // check overdue and fine
+        var returnDate = foundLending.getReturnDate();
+        var overDue = calcOverDue(returnDate); // calculate overdue date count
+        var fineAmount = calcFine(overDue); // calculate fine against overdue
+
+        foundLending.setOverdueDays(overDue);
+        foundLending.setFineAmount(fineAmount);
+        foundLending.setIsActiveLending(false);
+
+        // Update book quantity against book id
+        bookRepository.addBookBasedOnLending(foundLending.getBook().getBookId());
+    }
 
     @Override
     public LendingDTO getLendingById(String lendingId) {
-        LendingDTO lending = new LendingDTO();
-        lending.setLendingId("L12345");
-        lending.setBook("Effective Java");
-        lending.setMember("M12345");
-        lending.setIsActiveLending(true);
-        lending.setOverdueDays(1L);
-        lending.setFineAmount(10.00);
-        return lending;
-    };
+        var foundLending = lendingRepository.findById(lendingId).orElseThrow(() -> new LendingDataNotFoundException("Lending data not found"));
+        return lendingMapping.toLendingDTO(foundLending);
+    }
 
     @Override
     public List<LendingDTO> getAllLending() {
-        List<LendingDTO> lendingList = new ArrayList<>();
+        return lendingMapping.toLendingDTOList(lendingRepository.findAll());
+    }
 
-        LendingDTO lending1 = new LendingDTO();
-        lending1.setLendingId("L12345");
-        lending1.setBook("Effective Java");
-        lending1.setMember("M12345");
-        lending1.setIsActiveLending(true);
-        lending1.setOverdueDays(1L);
-        lending1.setFineAmount(10.00);
-
-        LendingDTO lending2 = new LendingDTO();
-        lending2.setLendingId("L12345");
-        lending2.setBook("Effective Java");
-        lending2.setMember("M12345");
-        lending2.setIsActiveLending(true);
-        lending2.setOverdueDays(1L);
-        lending2.setFineAmount(10.00);
-
-        LendingDTO lending3 = new LendingDTO();
-        lending3.setLendingId("L12345");
-        lending3.setBook("Effective Java");
-        lending3.setMember("M12345");
-        lending3.setIsActiveLending(true);
-        lending3.setOverdueDays(1L);
-        lending3.setFineAmount(10.00);
-
-        lendingList.add(lending1);
-        lendingList.add(lending2);
-        lendingList.add(lending3);
-
-        return lendingList;
-    };
-
-    private Long calcOverDue() {
-        // Today
+    private Long calcOverDue(LocalDate returnDate) {
         LocalDate today = UtilData.generateTodayDate();
-        LocalDate returDate = UtilData.generateReturnDateCalc();
-
-        if (returDate.isBefore(today)) {
-            return ChronoUnit.DAYS.between(today, returDate);
+        if (returnDate.isBefore(today)) {
+            return ChronoUnit.DAYS.between(returnDate, today);
         }
         return 0L;
     }
 
-    private Double calcOverDue(Long datCount) {
-        return datCount * fineAmount;
+    private Double calcFine(Long daysCount) {
+        return daysCount * fineAmount;
     }
 }
