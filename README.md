@@ -10,37 +10,22 @@
 - [Project Overview](#project-overview)
 - [Tech Stack](#tech-stack)
 - [Install Dependencies](#install-dependencies)
-<!-- - [Database Configuration](#database-configuration)
-- [API Endpoints](#api-endpoints)
-- [Running the Project](#running-the-project)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license) -->
 
 ---
 
 ## Project Overview
-<!--This backend serves as the core for **Voluntrix**, a volunteer management system that allows:  
-- **Organizations** to create events  
-- **Volunteers** to join and track progress  
-- **Sponsors** to support events  -->
-
-Features include:  
-<!-- -  **User Authentication (JWT Security)**  
- -  **Event & Task Management**  
- -  **Volunteer Tracking & Rankings**  
- -  **Sponsor & Donation Management** --> 
-
----
+The Library Management System is designed to manage book lending efficiently. It provides features to handle books, members, and lending transactions.  
+- **Book Management** – Add, update, delete, and retrieve book details
+- **Member Management** – Register members and manage their information
+- **Lending System** – Lend books to members, track due dates, and calculate fines
+- **Fine Calculation** – Automatic overdue fine calculation
 
 ## Tech Stack
-- **Java 21** – Backend language  
+- **Java 21** – Backend programming language  
 - **Spring Boot 3.4.2** – Framework  
-- **Maven** – Build tool  
+- **Maven** – Build and dependency management tool 
 - **Spring Data JPA** – ORM for MySQL
-- **MySQL** – Locally hosted relational database 
-<!--- **Spring Security & JWT** – Authentication & authorization  
-- **Docker** – Containerized deployment  -->
+- **MySQL** – Relational database for storing books, members, and lending transactions
 
 ---
 
