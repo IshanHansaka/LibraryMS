@@ -2,6 +2,8 @@ package com.DevSprint.LibraryMS.controller;
 
 import java.util.List;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,13 +28,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor // constructor injection
 public class BookController {
 
+    private static final Logger logger = LoggerFactory.getLogger(BookController.class);
+
     private final BookService bookService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> addBook(@RequestBody BookDTO bookDTO) {
+        
+        logger.info("Call the addBook() with param {}",bookDTO);
+        
         if (bookDTO == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        
         bookService.addBook(bookDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
